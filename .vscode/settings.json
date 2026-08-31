@@ -1,6 +1,6 @@
 {
 	"verilog.icarusBuildDirectory": "out",
-	"verilog.icarusCompileArguments": "-Y.sv -y.",
+	"verilog.icarusCompileArguments": "-Y.sv -y. -l simlib/prim_sim.v",
 	"VsCodeTaskButtons.tasks": [
 		{
             "label": "$(window) GTK-wave",
