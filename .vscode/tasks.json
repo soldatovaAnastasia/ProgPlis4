@@ -3,20 +3,92 @@
 {
 	"version": "2.0.0",
 	"tasks": [
+		// 1. Основной вариант: фиксированный файл out/top.vcd (см. $dumpfile в top_tb.v).
+		//    type "process" — без shell, аргументы передаются как есть на любой ОС.
 		{
 			"label": "Run GTK-wave",
 			"type": "process",
 			"command": "gtkwave",
 			"args": [
-				"${workspaceFolder}/out/waveform.vcd"
+				"${workspaceFolder}/out/top.vcd"
+				// , "${workspaceFolder}/top.gtkw"   // сохранённый набор сигналов (File -> Write Save File)
 			],
+			"windows": {
+				// gtkwave.exe должен быть в PATH, иначе укажите полный путь:
+				// "command": "C:/gtkwave/bin/gtkwave.exe"
+				"command": "gtkwave.exe"
+			},
+			"osx": {
+				// brew install gtkwave  -> /opt/homebrew/bin/gtkwave (Apple Silicon) или /usr/local/bin/gtkwave (Intel)
+				"command": "gtkwave"
+				// Если стоит gtkwave.app (старый cask / ручная установка):
+				// "command": "open",
+				// "args": ["-a", "gtkwave", "${workspaceFolder}/out/top.vcd"]
+			},
+			"linux": {
+				// apt install gtkwave / dnf install gtkwave / pacman -S gtkwave
+				"command": "gtkwave"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
-			"problemMatcher": [],
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+
+		// 2. Самый свежий *.vcd из out/ (имя файла не важно). Нужен shell для маски.
+		{
+			"label": "Run GTK-wave (latest vcd)",
+			"type": "shell",
 			"windows": {
-				"command": "gtkwave.exe"
-			}
+				"command": "gtkwave.exe (Get-ChildItem out\\*.vcd | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName",
+				"options": {
+					"shell": {
+						"executable": "powershell.exe",
+						"args": ["-NoProfile", "-Command"]
+					}
+				}
+			},
+			"osx": {
+				"command": "gtkwave \"$(ls -t out/*.vcd | head -n 1)\"",
+				"options": {
+					"shell": { "executable": "/bin/bash", "args": ["-c"] }
+				}
+			},
+			"linux": {
+				"command": "gtkwave \"$(ls -t out/*.vcd | head -n 1)\"",
+				"options": {
+					"shell": { "executable": "/bin/bash", "args": ["-c"] }
+				}
+			},
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+
+		// 3. Открыть файл, активный в редакторе (.vcd / .fst / .gtkw).
+		{
+			"label": "Run GTK-wave (current file)",
+			"type": "process",
+			"command": "gtkwave",
+			"args": ["${file}"],
+			"windows": { "command": "gtkwave.exe" },
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
 		}
 	]
 }

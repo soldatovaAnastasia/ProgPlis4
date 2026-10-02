@@ -1,11 +1,22 @@
 {
 	"verilog.icarusBuildDirectory": "out",
-	"verilog.icarusCompileArguments": "-Y.sv -y. -l simlib/prim_sim.v",
+	// "verilog.icarusCompileArguments": "-Y.sv -y.",
+	"verilog.icarusCompileArguments": "-c compile_files.txt -lsimlib/prim_sim.v",
 	"VsCodeTaskButtons.tasks": [
 		{
             "label": "$(window) GTK-wave",
             "task": "Run GTK-wave",
-            "tooltip": "View wave"
+            "tooltip": "View wave (out/top.vcd)"
+        },
+		{
+            "label": "$(history) GTK-wave latest",
+            "task": "Run GTK-wave (latest vcd)",
+            "tooltip": "View newest *.vcd in out/"
+        },
+		{
+            "label": "$(file) GTK-wave file",
+            "task": "Run GTK-wave (current file)",
+            "tooltip": "View wave file opened in editor"
         },
 	],
 	"cSpell.language": "en,ru,ru-RU,en-US",
