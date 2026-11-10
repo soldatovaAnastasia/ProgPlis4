@@ -1,0 +1,29 @@
+//File Title: Physical Constraints file
+//Part Number: GW2A-LV18PG256C8/I7
+//Device: GW2A-18
+//Device Version: C
+
+// Кварцевый генератор 27 МГц (модуль Tang Primer 20K)
+IO_LOC "clk" H11;
+IO_PORT "clk" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// Кнопки Tang Primer 20K Dock (схема Dock, лист Things: Silicone Key_1..3),
+// подтянуты к питанию, при нажатии — 0.
+IO_LOC "btn_s0" T10;   // Key_1, банк 3, подтяжка к 3.3 В
+IO_PORT "btn_s0" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC "btn_s1" T3;    // Key_2, банк 4, подтяжка к 1.5 В
+IO_PORT "btn_s1" IO_TYPE=LVCMOS15 PULL_MODE=UP;
+IO_LOC "btn_s2" T2;    // Key_3, банк 4, подтяжка к 1.5 В
+IO_PORT "btn_s2" IO_TYPE=LVCMOS15 PULL_MODE=UP;
+
+// Сдвиговые регистры 74HC595 платы FPGA_Expander
+IO_LOC "ser_data" P6;   // SPI_SR_DI  -> DS
+IO_PORT "ser_data" IO_TYPE=LVCMOS33;
+IO_LOC "ser_clk" T7;    // SPI_SR_CLK -> SHCP
+IO_PORT "ser_clk" IO_TYPE=LVCMOS33;
+IO_LOC "ser_latch" R8;  // SPI_SR_NSS -> STCP
+IO_PORT "ser_latch" IO_TYPE=LVCMOS33;
+
+// Светодиод Dock Orange_LED2 (анод на 3.3 В, горит при 0)
+IO_LOC "led_n" N16;
+IO_PORT "led_n" IO_TYPE=LVCMOS33;

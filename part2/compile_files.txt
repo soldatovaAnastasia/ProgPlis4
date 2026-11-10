@@ -1,0 +1,5 @@
+gw_prj/src/stopwatch_top.v
+gw_prj/src/sw_debounce.v
+gw_prj/src/sw_time_counter.v
+gw_prj/src/sw_display.v
+gw_prj/src/sw_seg_tab.v
