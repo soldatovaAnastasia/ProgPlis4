@@ -1,0 +1,16 @@
+//File Title: Physical Constraints file
+//Part Number: GW2A-LV18PG256C8/I7
+//Device: GW2A-18
+//Device Version: C
+
+// Кварцевый генератор 27 МГц
+IO_LOC "clk" H11;
+IO_PORT "clk" IO_TYPE=LVCMOS18 PULL_MODE=UP BANK_VCCIO=1.8;
+
+// Сдвиговые регистры 74HC595 стенда (схема FPGA_Expander, преобразователь уровней U13)
+IO_LOC "ser_data" P6;   // SPI_SR_DI  -> DS первого регистра
+IO_LOC "ser_clk" T7;    // SPI_SR_CLK -> SHCP обоих регистров
+IO_LOC "ser_latch" R8;  // SPI_SR_NSS -> STCP обоих регистров
+
+// Импульс готовности (по заданию — вывод R1)
+IO_LOC "ready" R1;

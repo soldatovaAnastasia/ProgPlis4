@@ -1,0 +1,4 @@
+gw_prj/src/top.v
+gw_prj/src/seven_seg_control.v
+gw_prj/src/seven_seg_tab.v
+gw_prj/src/bin2bcd.v
